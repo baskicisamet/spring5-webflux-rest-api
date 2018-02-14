@@ -11,11 +11,11 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-public class CategoryContoller {
+public class CategoryController {
 	
 	private final CategoryRepository categoryRepository;
 
-	public CategoryContoller(CategoryRepository categoryRepository) {
+	public CategoryController(CategoryRepository categoryRepository) {
 		super();
 		this.categoryRepository = categoryRepository;
 	}
