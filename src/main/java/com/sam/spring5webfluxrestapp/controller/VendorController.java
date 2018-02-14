@@ -1,8 +1,13 @@
 package com.sam.spring5webfluxrestapp.controller;
 
 
+import org.reactivestreams.Publisher;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sam.spring5webfluxrestapp.domain.Vendor;
@@ -29,5 +34,11 @@ public class VendorController {
     @GetMapping("api/v1/vendors/{id}")
     Mono<Vendor> getById(@PathVariable String id){
         return vendorRepository.findById(id);
+    }
+    
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/api/v1/vendors")
+    Mono<Void> create(@RequestBody  Publisher<Vendor> vendorStream) {
+        return vendorRepository.saveAll(vendorStream).then();
     }
 }
